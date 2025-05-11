@@ -1,0 +1,89 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 4,
+    "modules-left": ["custom/distrologo", "hyprland/workspaces"],
+    "modules-center": ["custom/player"],
+    "modules-right": ["custom/notifications", "clock", "cpu", "memory", "battery", "network", "backlight", "pulseaudio", "tray"],
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "urgent": "⚠️",
+            "focused": "▶️",
+            "default": "⏺️"
+        }
+    },
+    "custom/distrologo": {
+  	"format": "{icon}",
+  	"tooltip-format": "I'm using Arch BTW",
+  	"tooltip": true,
+  	"format-icons": {
+    	"default": "󰣇" // Nerd Font Arch logo
+  			},
+  	"on-click": "wofi --show drun"
+	},
+    "custom/player": {
+    	"format": "{}",
+    	"interval": 1,
+    	"exec": "~/.config/waybar/scripts/player_status.sh",
+    	"on-click": "playerctl play-pause",
+    	"on-click-right": "playerctl next",
+    	"on-click-middle": "playerctl previous",
+    	"tooltip": false
+	},
+    "custom/notifications": {
+    	"exec": "~/.config/waybar/scripts/notifications.sh",
+    	"interval": 2,
+    	"format": "{}",  // This tells Waybar to parse JSON
+    	"return-type": "json",  // 👈 This line is CRUCIAL
+    	"on-click": "bash -c 'dunstctl history-pop; sleep 1; dunstctl history-clear'",
+    	"on-click-right": "dunstctl set-paused toggle"
+	},
+    "clock": {
+	"format": "{:%a %d %b | %H:%M}",
+ 	"tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+ 	"interval": 60
+	},
+    "cpu": {
+        "format": "CPU {usage}%",
+        "interval": 2
+    },
+    "memory": {
+        "format": "MEM {}%"
+    },
+    "battery": {
+    	"bat": "BAT1",
+    	"format": "BAT {capacity}%",
+	"format-charging": " {capacity}%",
+	"format-discharging": "{capacity}%"
+    },
+    "network": {
+        "format-wifi": "📶",
+        "format-ethernet": "🔌 Wired",
+        "format-disconnected": "⚠️ Offline"
+    },
+    "backlight": {
+        "device": "amdgpu_bl1",
+        "format": "💡 {percent}%",
+        "interval": 1,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-icons": {
+            "default": ["🔈", "🔉", "🔊"]
+        },
+        "on-click": "pavucontrol"
+    },
+    "tray": {
+        "spacing": 8
+    }
+}
+
